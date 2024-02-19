@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        
+        .titulo {
+            font-weight: bold;
+            color: white;
+            background-color: brown;
+            padding: 30px;
+            text-align: center;
+            width: 100.1%;
+            margin-left: -1em;
+            font-size: 22px;
+        }
+        .menu {
+            padding-top: 1em;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+        }
+        .carta {
+            padding-top: 2em;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 40%;
+            height: 300px;
+            border: 1px solid #fff !important;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correio Elegante</title>
+
+</head>
+
+<body>
+    <div class="carta">
+        <div id="correio" class="titulo"> </div>
+    </div>
+    <div id="controle"> </div>
+    <div class="menu">
+        <button onclick="stopCorreio()">Pausar</button>
+        <button onclick="player()">Iniciar</button>
+    </div>
+</body>
+
+<script>
+    const frases = [
+        "Você é o sonho que se tornou realidade em minha vida.",
+        "Ao seu lado, cada momento se torna um precioso lembrete do quanto é bom amar.",
+        "Você transformou minha vida em uma história de amor sem fim.",
+        "Com você, cada dia é uma nova aventura repleta de amor e alegria.",
+        "Seu amor é a melodia que meu coração deseja ouvir todos os dias.",
+        "Estar com você é como encontrar o pedaço que faltava em minha alma.",
+        "Você é o motivo pelo qual acredito no amor verdadeiro.",
+        "Meu amor por você cresce mais a cada dia que passa.",
+        "Sua presença em minha vida é como um raio de sol em um dia nublado.",
+        "Cada momento ao seu lado é um tesouro que guardo em meu coração.",
+        "Você é a poesia que dá ritmo ao bater do meu coração.",
+        "Com você, aprendi o verdadeiro significado do amor.",
+        "Seu sorriso tem o poder de iluminar os meus dias mais sombrios.",
+        "Eu escolheria você em qualquer vida, em qualquer mundo, em qualquer versão da realidade.",
+        "Seu amor é a minha força e minha inspiração.",
+        "Você é meu porto seguro, meu refúgio em meio à tempestade.",
+        "Estar ao seu lado é sentir a verdadeira felicidade.",
+        "Você me completa de maneiras que nunca imaginei ser possível.",
+        "Nosso amor é uma jornada eterna, sempre crescendo, sempre florescendo.",
+        "Com você, cada pequeno momento se torna uma grande memória.",
+        "Meu amor por você é como o universo: sem fim e sempre em expansão.",
+        "Você é a razão pela qual meus dias são cheios de alegria.",
+        "Seu amor me envolve como um abraço quente e confortável.",
+        "Com você, cada instante é uma preciosidade que desejo eternizar.",
+        "Você é minha estrela guia, iluminando meu caminho com amor.",
+        "Agradeço todos os dias por ter você em minha vida.",
+        "Seu amor é o presente mais precioso que já recebi.",
+        "Com você, descobri que o amor verdadeiro supera qualquer desafio.",
+        "Você é meu sonho realizado, meu final feliz.",
+        "Ao seu lado, sinto que posso conquistar o mundo.",
+        "Cada dia ao seu lado é uma nova página na nossa linda história de amor.",
+        "Você é a luz que dissipa todas as minhas trevas.",
+        "Meu amor por você é um fogo ardente que nunca se apaga.",
+        "Você é o sussurro do vento, a calma do mar, a paz que eu sempre procurei.",
+        "Seu amor é a minha âncora, mantendo-me firme mesmo nas tempestades.",
+        "Com você, cada momento é uma oportunidade para amar mais e mais.",
+        "Você é meu refúgio, meu lar, o lugar onde sempre quero estar.",
+        "Seu amor é a melodia mais doce, a canção que meu coração sempre quer cantar.",
+        "Eu te amo não apenas pelo que você é, mas pelo que sou quando estou com você.",
+        "Você é o milagre que eu esperava, o sonho que se tornou realidade.",
+        "Estar com você é como estar em um sonho do qual nunca quero acordar.",
+        "Você é a página mais bonita que o destino escreveu em minha vida.",
+        "Meu amor por você é um oceano, profundo e vasto, cheio de mistérios e beleza.",
+        "Você é a razão pela qual acredito na beleza dos dias.",
+        "Seu amor é a força que me guia, a luz no fim do meu túnel.",
+        "Cada dia sem você é como um livro sem páginas, uma história inacabada.",
+        "Você é meu eterno namorado, meu amor, minha vida.",
+        "Com você, cada estação é primavera, cada dia é uma nova chance de amar.",
+        "Você é o calor que aquece minha alma, o sol que brilha em meu coração.",
+        "Meu amor por você é eterno, inabalável, infinito.",
+        "Você é a promessa de dias melhores, a esperança que guia meu coração.",
+        "Estar com você é sentir o verdadeiro significado da felicidade.",
+        "Você é meu conto de fadas, minha história de amor favorita.",
+        "Com você, sinto que encontrei o verdadeiro tesouro da vida: o amor.",
+        "Você é a melhor parte de todos os meus dias.",
+        "Meu amor por você é como o céu: imenso e cheio de estrelas.",
+        "Você é a razão do meu sorriso, a alegria em meu coração.",
+        "Com você, cada desafio se torna uma aventura, cada problema uma oportunidade.",
+        "Você é meu anjo, meu protetor, meu guia no caminho do amor.",
+        "Meu amor por você é uma chama que nunca se apaga, um fogo que sempre arde.",
+        "Você é a harmonia perfeita, a canção que completa minha alma.",
+        "Estar com você é como ter um pedacinho do paraíso todos os dias.",
+        "Você é o amor da minha vida, a razão de tudo o que é bom.",
+        "Com você, aprendi que o amor é a resposta, não importa a pergunta.",
+        "Você é meu destino, meu final feliz, meu sempre.",
+        "Meu amor por você é um rio, sempre fluindo, nunca parando.",
+        "Você é o sorriso nos meus lábios, a batida no meu coração.",
+        "Com você, cada segundo é precioso, cada momento é inesquecível.",
+        "Você é o sonho que nunca quero perder, a realidade que sempre quis.",
+        "Meu amor por você transcende o tempo e o espaço, é eterno.",
+        "Você é o brilho das estrelas, a luz da lua, a beleza do amanhecer.",
+        "Com você, sinto que posso ser eu mesmo, amar sem medo, viver sem limites.",
+        "Você é meu companheiro de vida, meu melhor amigo, meu amor eterno.",
+        "Meu amor por você é uma jornada, começando a cada amanhecer e nunca terminando.",
+        "Você é a paz que procuro, o amor que anseio, a alegria que desejo.",
+        "Com você, cada dia é uma celebração do amor, uma festa da felicidade.",
+        "Você é o presente que a vida me deu, o tesouro que sempre guardarei.",
+        "Meu amor por você é uma promessa, um compromisso de estar sempre ao seu lado.",
+        "Você é a inspiração para todos os meus sonhos, a motivação para todas as minhas ações.",
+        "Com você, descobri o verdadeiro significado da palavra amor.",
+        "Você é meu coração, minha alma, meu tudo.",
+        "Meu amor por você é a mais bela história, escrita nas estrelas e eternizada em nosso coração.",
+        "Você é o abraço que sempre quero, o beijo que nunca canso, o amor que sempre desejo.",
+        "Com você, a vida é uma aventura maravilhosa, cheia de amor e felicidade.",
+        "Você é a razão pela qual meu coração bate, o motivo pelo qual minha alma sorri.",
+        "Meu amor por você é incondicional, imutável, eterno.",
+        "Você é o sonho de toda uma vida, a realidade mais doce, o amor mais verdadeiro.",
+        "Com você, cada momento é mágico, cada dia é um presente, cada noite uma celebração do amor.",
+        "Você é tudo o que sempre quis, tudo o que preciso, tudo o que amo."
+    ];
+    let play;
+    let status = false;
+
+    function player() {
+        if (status != true) {
+            document.getElementById('controle').innerHTML = "";
+            play = setInterval(() => {
+                fraseAleatoria();
+            }, 5000);
+            status = true
+        }
+    }
+    function stopCorreio() {
+        clearInterval(play);
+        document.getElementById('controle').innerHTML = " Pausado";
+        status = false;
+
+    }
+
+    function fraseAleatoria() {
+        document.getElementById('correio').innerHTML = frases[Math.floor(Math.random() * frases.length)];
+    }
+    fraseAleatoria();
+    player();
+</script>
+
+</html>
